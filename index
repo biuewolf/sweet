@@ -1,0 +1,39 @@
+// 副線夢境資料（簡化示範，完整可從 Word 對應表導入）
+const dreamData = {
+  1: {
+    title: "白雪公主的毒蘋果奶昔",
+    content: "你喝下去的瞬間，一面鏡子突然在空氣中浮現。你看見一個小孩站在洗手間，用水反覆搓臉，嘴裡說著：\"不可以再討厭自己。\"..."
+  },
+  2: {
+    title: "青蛙王子的巧克力吻",
+    content: "你咬開巧克力，它裡面寫著：\"你值得被愛，立刻，無條件。\"然後你看見命中注定的人影緩緩出現..."
+  },
+  // ...其餘題目依序補上（3~39）
+};
+
+// DOM 元素選擇
+const triggerWords = document.querySelectorAll('.trigger-word');
+const overlay = document.getElementById('overlay');
+const contentBox = document.getElementById('dream-content');
+const closeBtn = document.getElementById('close-card');
+
+// 顯示夢境卡片
+triggerWords.forEach(word => {
+  word.addEventListener('click', () => {
+    const id = word.getAttribute('data-id');
+    const data = dreamData[id];
+    if (data) {
+      contentBox.innerHTML = `
+        <h3>${data.title}</h3>
+        <p>${data.content}</p>
+      `;
+      overlay.classList.remove('hidden');
+    }
+  });
+});
+
+// 關閉夢境卡片
+closeBtn.addEventListener('click', () => {
+  overlay.classList.add('hidden');
+  contentBox.innerHTML = '';
+});
